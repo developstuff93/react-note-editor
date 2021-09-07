@@ -1,0 +1,30 @@
+.edit-panel {
+  padding: 2rem;
+}
+
+input,
+textarea {
+  border: none;
+  outline: none;
+}
+
+.edit-panel__title {
+  margin-bottom: 1rem;
+  margin-top: 4rem;
+}
+
+.edit-panel__title input {
+  font-size: 40px;
+  font-weight: bold;
+  color: #404b59;
+}
+
+.edit-panel__content textarea {
+  width: 100%;
+  font-size: 30px;
+  color: #4f5865;
+}
+
+.edit-panel__content textarea::-webkit-scrollbar {
+  display: none;
+}
