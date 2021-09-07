@@ -15,7 +15,7 @@ export default function AddNewIcon() {
         x2="22.5"
         y2="19"
         stroke="#5A94D3"
-        stroke-width="3"
+        strokeWidth="3"
       />
       <line
         x1="20.5"
@@ -23,7 +23,7 @@ export default function AddNewIcon() {
         x2="36.5"
         y2="8"
         stroke="#5A94D3"
-        stroke-width="3"
+        strokeWidth="3"
       />
       <line
         x1="28.5"
@@ -31,7 +31,7 @@ export default function AddNewIcon() {
         x2="28.5"
         y2="16"
         stroke="#5A94D3"
-        stroke-width="3"
+        strokeWidth="3"
       />
       <line
         x1="6.5"
@@ -39,7 +39,7 @@ export default function AddNewIcon() {
         x2="22.5"
         y2="28"
         stroke="#5A94D3"
-        stroke-width="3"
+        strokeWidth="3"
       />
       <path
         fillRule="evenodd"

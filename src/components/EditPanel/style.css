@@ -21,6 +21,8 @@ textarea {
 
 .edit-panel__content textarea {
   width: 100%;
+  min-height: 500px;
+  min-width: 600px;
   font-size: 30px;
   color: #4f5865;
 }

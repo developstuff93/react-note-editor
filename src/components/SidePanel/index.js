@@ -5,10 +5,15 @@ import CaretRightIcon from "../../icons/CaretRightIcon";
 import "./style.css";
 
 export default function SidePanel() {
-  const { notes, selectedNote, setSelectedNote } = useAppState();
+  const { notes, selectedNoteId, setSelectedNoteId } = useAppState();
 
-  const handleSelectNote = (note) => {
-    setSelectedNote(note);
+  const handleSelectNote = (newId) => {
+    setSelectedNoteId(newId);
+  };
+
+  const dateFormatter = new Intl.DateTimeFormat("en-US", { dateStyle: "full" });
+  const formatDate = (date) => {
+    return dateFormatter.format(new Date(date));
   };
 
   return (
@@ -25,13 +30,13 @@ export default function SidePanel() {
           <div
             key={id}
             className="side-panel_note"
-            onClick={() => handleSelectNote(note)}
+            onClick={() => handleSelectNote(note.id)}
           >
             <div className="note-details">
               <span className="details-title">{title}</span>
-              <span className="details-date">{date_created}</span>
+              <span className="details-date">{formatDate(date_created)}</span>
             </div>
-            {id === selectedNote.id && (
+            {id === selectedNoteId && (
               <div className="note-action">
                 <CaretRightIcon />
               </div>
