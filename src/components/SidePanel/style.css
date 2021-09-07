@@ -1,0 +1,48 @@
+.side-panel {
+  padding: 2rem 0;
+  width: 30%;
+  max-width: 400px;
+}
+
+.side-panel_note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+
+.side-panel_note:hover,
+.side-panel_note.selected {
+  background-color: #f5f5f5;
+}
+
+.note-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-panel_title {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.side-panel_title .title {
+  font-weight: bold;
+  font-size: 30px;
+  color: #03535c;
+}
+
+.side-panel_title .add-new-icon {
+  margin-left: 2rem;
+}
+
+.details-title {
+  margin-bottom: 0.8rem;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.note-action {
+  margin-left: 2rem;
+}
