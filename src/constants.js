@@ -1,3 +1,5 @@
+export const API_URL = "https://forested-crystalline-bonobo.glitch.me/";
+
 const data = [
   {
     title: "this is my famous note",
