@@ -6,7 +6,7 @@ export const AppStateContext = createContext(null);
 
 export default function AppStateProvider({ children }) {
   const [notes, setNotes] = useState([]);
-  const [selectedNoteId, setSelectedNoteId] = useState(null);
+  const [selectedNote, setSelectedNote] = useState(null);
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -17,7 +17,7 @@ export default function AppStateProvider({ children }) {
         }
         const { data: newNotes } = res;
         if (newNotes && newNotes.length) {
-          setSelectedNoteId(newNotes[0].id);
+          setSelectedNote(newNotes[0].id);
           setNotes(newNotes);
         }
       } catch (error) {
@@ -30,8 +30,8 @@ export default function AppStateProvider({ children }) {
   const value = {
     notes,
     setNotes,
-    selectedNoteId,
-    setSelectedNoteId,
+    selectedNote,
+    setSelectedNote,
   };
 
   return (

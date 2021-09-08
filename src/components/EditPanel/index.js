@@ -1,64 +1,71 @@
-import React, { useMemo } from "react";
-import _debounce from "lodash/debounce";
+import React, { useEffect, useState } from "react";
 import useAppState from "../../hooks/useAppState";
-import "./style.css";
 import { API_URL } from "../../constants";
 import axios from "axios";
+import useDebounce from "../../hooks/useDebounce";
+import "./style.css";
 
 export default function EditPanel() {
-  const { selectedNoteId, notes, setNotes } = useAppState();
+  const { selectedNote, setSelectedNote, notes, setNotes } = useAppState();
+  const [title, setTitle] = useState();
+  const [content, setContent] = useState();
 
-  const selectedNote = useMemo(
-    () => notes.find((note) => note.id === selectedNoteId),
-    [notes, selectedNoteId]
-  );
+  useEffect(() => {
+    setTitle(selectedNote?.title);
+    setContent(selectedNote?.content);
+  }, [selectedNote]);
+
+  const updateNote = (newNote) => {
+    setSelectedNote(newNote);
+    const newNotes = notes.map((note) =>
+      note.id === newNote.id ? newNote : note
+    );
+    setNotes(newNotes);
+    axios.put(`${API_URL}/${newNote.id}`, newNote);
+  };
+
+  const handleTitleUpdate = (value) => {
+    const newDate = new Date();
+    updateNote({
+      ...selectedNote,
+      title: value,
+      date_created: newDate.toISOString(),
+    });
+  };
+
+  const handleContentUpdate = (value) => {
+    const newDate = new Date();
+    updateNote({
+      ...selectedNote,
+      content: value,
+      date_created: newDate.toISOString(),
+    });
+  };
+
+  const debouncedTitleChange = useDebounce(handleTitleUpdate, 1000);
+  const debouncedContentChange = useDebounce(handleContentUpdate, 1000);
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+    debouncedTitleChange(e.target.value);
+  };
+
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+    debouncedContentChange(e.target.value);
+  };
 
   if (!selectedNote) {
     return <div className="edit-panel">No notes</div>;
   }
 
-  const updateNote = (newNote) => {
-    const newNotes = notes.map((note) =>
-      note.id === selectedNoteId ? newNote : note
-    );
-    setNotes(newNotes);
-    axios.put(`${API_URL}/${selectedNoteId}`, newNote);
-  };
-
-  const handleTitleChange = (e) => {
-    const newDate = new Date();
-
-    updateNote({
-      ...selectedNote,
-      title: e.target.value,
-      date_created: newDate.toISOString(),
-    });
-  };
-  const debouncedTitleChange = _debounce(handleTitleChange, 1000);
-
-  const handleContentChange = (e) => {
-    const newDate = new Date();
-    updateNote({
-      ...selectedNote,
-      content: e.target.value,
-      date_created: newDate.toISOString(),
-    });
-  };
-  const debouncedContentChange = _debounce(handleContentChange, 1000);
-
   return (
     <div className="edit-panel">
       <div className="edit-panel__title">
-        <input
-          defaultValue={selectedNote.title}
-          onChange={debouncedTitleChange}
-        />
+        <input value={title} onChange={handleTitleChange} />
       </div>
       <div className="edit-panel__content">
-        <textarea
-          defaultValue={selectedNote.content}
-          onChange={debouncedContentChange}
-        />
+        <textarea value={content} onChange={handleContentChange} />
       </div>
     </div>
   );
